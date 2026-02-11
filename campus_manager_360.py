@@ -229,6 +229,54 @@ class Biblioteca():
 
 #-------------GESTION VEHICULAR--------------
 
+class Vehiculo:
+    def __init__(self, marca, consumo_combustibleKm):
+        self.__marca = marca
+        self.__consumo_combustibleKm = consumo_combustibleKm
+
+    @property
+    def consumo_combustibleKm(self):
+        return self.__consumo_combustibleKm
+
+    def calcular_costo_viaje(self, distancia, precio_combustible):
+        pass
+
+    def mostrar_informacion(self):
+        print("Informacion del vehiculo")
+        print("Marca:", self.__marca)
+
+
+class Automovil(Vehiculo):
+    def calcular_costo_viaje(self, distancia, precio_combustible):
+        litros_utilizados = distancia * self.consumo_combustibleKm
+        costo = litros_utilizados * precio_combustible
+        return costo
+
+
+class Motocicleta(Vehiculo):
+    def calcular_costo_viaje(self, distancia, precio_combustible):
+        litros_utilizados = distancia * self.consumo_combustibleKm
+        costo = litros_utilizados * precio_combustible
+        return costo
+
+
+class Camion(Vehiculo):
+    def __init__(self, marca, consumo_combustibleKm, costoExtra):
+        super().__init__(marca, consumo_combustibleKm)
+        self.costoExtra = costoExtra
+
+    def calcular_costo_viaje(self, distancia, precio_combustible):
+        litros_utilizados = distancia * self.consumo_combustibleKm
+        costo = litros_utilizados * precio_combustible
+        return costo + self.costoExtra
+
+
+def calcular_costo(lista_vehiculos, distancia, precio):
+    for vehiculo in lista_vehiculos:
+        costo = vehiculo.calcular_costo_viaje(distancia, precio)
+        vehiculo.mostrar_informacion()
+        print("Costo del viaje:", costo)
+        print("----------------------")
 
 
 #-------------MENUS--------------
