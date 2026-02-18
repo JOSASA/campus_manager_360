@@ -1,21 +1,15 @@
-# ==============================================================================
-# PROYECTO INTEGRAL: CAMPUS MANAGER 360
-# ==============================================================================
 
-# ==========================================
-#           MODULO 1: GESTION ACADEMICA
-# ==========================================
+#GESTION ACADEMICA
 
-# Clase Padre (Superclase): Define los atributos comunes para cualquier persona.
+#Clase Padre (Superclase): Define los atributos comunes para cualquier persona.
 class Persona:
-    # Constructor: Inicializa los atributos básicos y los encapsula (privados).
+    #Constructor
     def __init__(self, nombre, apaterno, amaterno, edad):
         self.__nombre = nombre
         self.__apaterno = apaterno
         self.__amaterno = amaterno
         self.__edad = edad
 
-    # --- Propiedades (Getters) ---
     @property
     def nombre(self):
         return self.__nombre
@@ -32,20 +26,16 @@ class Persona:
     def edad(self):
         return self.__edad
 
-
-# Clase Hija: Hereda de Persona y agrega atributos escolares (Herencia Simple).
 class Estudiante(Persona):
     # Constructor: Recibe datos de persona + datos escolares.
     def __init__(self, nombre, apaterno, amaterno, edad, expediente, carrera, semestre, promedio):
-        # Usamos super() para enviar los datos comunes al constructor de Persona.
+        #Usamos super() para enviar los datos comunes al constructor de Persona.
         super().__init__(nombre, apaterno, amaterno, edad)
-        # Inicializamos los atributos exclusivos del estudiante.
         self.__expediente = expediente
         self.__carrera = carrera
         self.__semestre = semestre
         self.__promedio = float(promedio)
 
-    # --- Propiedades (Getters y Setters) ---
     @property
     def expediente(self):
         return self.__expediente
@@ -74,7 +64,6 @@ class Estudiante(Persona):
     def promedio(self, nuevo_promedio):
         self.__promedio = float(nuevo_promedio)
 
-    # Metodo para imprimir la informacion
     def mostrar_datos(self):
         print("--- DATOS DEL ESTUDIANTE ---")
         print(f"Expediente: {self.expediente}")
@@ -82,16 +71,12 @@ class Estudiante(Persona):
         print(f"Carrera: {self.carrera} | Semestre: {self.semestre}")
         print(f"Promedio: {self.promedio}")
 
-
-# Clase Hija: Hereda de Persona y agrega datos laborales.
 class Profesor(Persona):
     def __init__(self, nombre, apaterno, amaterno, edad, num_empleado, area_docente):
-        # Inicializa la parte de Persona.
         Persona.__init__(self, nombre, apaterno, amaterno, edad)
         self.__num_empleado = num_empleado
         self.__area_docente = area_docente
 
-    # --- Propiedades (Getters y Setters) ---
     @property
     def num_empleado(self):
         return self.__num_empleado
@@ -104,8 +89,6 @@ class Profesor(Persona):
     def area_docente(self, nueva_area):
         self.__area_docente = nueva_area
 
-
-# Clase Hija: Hereda de Persona y agrega datos de investigación.
 class Investigador(Persona):
     def __init__(self, nombre, apaterno, amaterno, edad, linea_investigacion, publicaciones):
         # Inicializa la parte de Persona.
@@ -137,7 +120,6 @@ class ProfesorInvestigador(Profesor, Investigador):
         Profesor.__init__(self, nombre, apaterno, amaterno, edad, num_empleado, area_docente)
         Investigador.__init__(self, nombre, apaterno, amaterno, edad, linea_inv, publicaciones)
 
-    # Metodo para imprimir la informacion
     def mostrar_datos(self):
         print("--- DATOS PROFESOR INVESTIGADOR ---")
         print(f"Empleado: {self.num_empleado}")
@@ -146,15 +128,12 @@ class ProfesorInvestigador(Profesor, Investigador):
         print(f"Linea Investigación: {self.linea_investigacion}")
         print(f"Publicaciones: {self.publicaciones}")
 
-
-# --- CLASE CONTROLADORA ---
 class ControlAcademico:
     def __init__(self):
         # Listas para guardar los objetos.
         self.lista_estudiantes = []
         self.lista_profesores = []
 
-    # Solicita datos, valida que no haya duplicados y guarda un nuevo estudiante.
     def registrar_estudiante(self):
         print("\n--- REGISTRAR ESTUDIANTE ---")
         exp = input("Ingresa el expediente: ")
@@ -183,7 +162,7 @@ class ControlAcademico:
             else:
                 print("Error: El promedio debe estar entre 0 y 10.")
 
-    # Imprime la lista completa de estudiantes registrados.
+    #Imprime la lista completa de estudiantes registrados
     def mostrar_estudiantes(self):
         print("\n--- LISTADO DE ESTUDIANTES ---")
         if not self.lista_estudiantes:
@@ -192,7 +171,7 @@ class ControlAcademico:
             for est in self.lista_estudiantes:
                 est.mostrar_datos()
 
-    # Busca un estudiante por expediente y permite editar carrera, semestre y promedio.
+    #Busca por expediente y permite editar carrera, semestre y promedio
     def actualizar_estudiante(self):
         exp = input("\nIngresa el expediente del estudiante a modificar: ")
 
@@ -205,7 +184,7 @@ class ControlAcademico:
                 nuevo_promedio = float(input("Nuevo promedio: "))
 
                 if nuevo_promedio >= 0 and nuevo_promedio <= 10:
-                    # Usamos los setters para actualizar los valores encapsulados.
+                    #actualizar los valores encapsulados.
                     est.carrera = nueva_carrera
                     est.promedio = nuevo_promedio
                     est.semestre = nuevo_semestre
@@ -218,7 +197,6 @@ class ControlAcademico:
         if not encontrado:
             print("No se encontro un estudiante con ese expediente.")
 
-    # Metodo para registrar a un profesor investigador.
     def registrar_profesor_investigador(self):
         print("\n--- REGISTRAR PROFESOR INVESTIGADOR ---")
         num = input("Ingresa numero de empleado: ")
@@ -247,7 +225,6 @@ class ControlAcademico:
             else:
                 print("Error: Las publicaciones no pueden ser negativas.")
 
-    # Imprime la lista completa de profesores registrados.
     def mostrar_profesores(self):
         print("\n--- LISTADO PROFESORES INVESTIGADORES ---")
         if not self.lista_profesores:
@@ -256,7 +233,7 @@ class ControlAcademico:
             for p in self.lista_profesores:
                 p.mostrar_datos()
 
-    # Busca profesor por numero de empleado y actualiza sus datos.
+    # Busca por numero de empleado y actualiza sus datos
     def actualizar_profesor(self):
         num = input("\nIngresa el numero de empleado a modificar: ")
         encontrado = False
@@ -282,11 +259,8 @@ class ControlAcademico:
             print("No se encontro el profesor.")
 
 
-# ==========================================
-#           MODULO 2: BIBLIOTECA
-# ==========================================
+#BIBLIOTECA
 
-# Clase Libro: Representa un libro con sus datos encapsulados.
 class Libro:
     def __init__(self, titulo, autor, numPaginas):
         self.__titulo = titulo
@@ -311,12 +285,10 @@ class Libro:
     def disponible(self, valor): self.__disponible = valor
 
 
-# Clase Gestora: Administra la lista de libros.
 class Biblioteca:
     def __init__(self):
         self.lista_libros = []
 
-    # Crea un libro y lo agrega a la lista si las paginas son validas.
     def registrar_libro(self):
         t = input("Ingresa el titulo: ")
         a = input("Ingresa el autor: ")
@@ -329,21 +301,20 @@ class Biblioteca:
         else:
             print("Error: El libro debe tener mas de 0 paginas.")
 
-    # Recorre la lista e imprime el catalogo.
     def listar_libros(self):
         print("\n--- CATALOGO BIBLIOTECA ---")
         if not self.lista_libros:
             print("No hay libros registrados.")
         else:
             for l in self.lista_libros:
-                # Convertimos el booleano True/False a texto legible.
+                #True/False a texto
                 if l.disponible:
                     estado = "Disponible"
                 else:
                     estado = "Prestado"
                 print(f"Titulo: {l.titulo}, Paginas: {l.numPaginas}, Estado: {estado}")
 
-    # Busca un libro por titulo y cambia su estado (Disponible <-> Prestado).
+    #Busca por titulo y cambia su estado.
     def cambiar_disponibilidad(self):
         busq = input("Ingresa el titulo del libro a buscar: ")
         encontrado = False
@@ -361,12 +332,8 @@ class Biblioteca:
         if not encontrado:
             print("Libro no encontrado.")
 
+#TRANSPORTE
 
-# ==========================================
-#           MODULO 3: TRANSPORTE
-# ==========================================
-
-# Clase Base Vehiculo: Define la estructura que heredaran los demas.
 class Vehiculo:
     def __init__(self, marca, consumo):
         self.__marca = marca
@@ -378,19 +345,15 @@ class Vehiculo:
     @property
     def consumo(self): return self.__consumo
 
-    # Metodo base que imprime la informacion.
     def mostrar_informacion(self):
         print(f"Marca: {self.marca}")
         print(f"Consumo: {self.consumo} L/km")
 
-    # Metodo abstracto para calcular costo. Se sobreescribe en los hijos.
     def calcular_costo_viaje(self, distancia, precio):
         pass
 
 
-# Clase Hija Automovil
 class Automovil(Vehiculo):
-    # Muestra su titulo y llama al padre para mostrar marca/consumo.
     def mostrar_informacion(self):
         print("----- AUTOMOVIL -----")
         super().mostrar_informacion()
@@ -398,8 +361,6 @@ class Automovil(Vehiculo):
     def calcular_costo_viaje(self, distancia, precio):
         return (distancia * self.consumo) * precio
 
-
-# Clase Hija Motocicleta
 class Motocicleta(Vehiculo):
     def mostrar_informacion(self):
         print("----- MOTOCICLETA -----")
@@ -408,51 +369,41 @@ class Motocicleta(Vehiculo):
     def calcular_costo_viaje(self, distancia, precio):
         return (distancia * self.consumo) * precio
 
-
-# Clase Hija Camion
 class Camion(Vehiculo):
     def __init__(self, marca, consumo, costo_extra):
         # Llama al constructor del padre.
         super().__init__(marca, consumo)
         self.__costo_extra = float(costo_extra)
 
-    # Muestra titulo, llama al padre, y agrega su dato extra.
     def mostrar_informacion(self):
         print("----- CAMION -----")
         super().mostrar_informacion()
         print(f"Costo extra: ${self.__costo_extra}")
 
-    # Formula de camion: Suma el costo extra al final.
     def calcular_costo_viaje(self, distancia, precio):
         costo_base = (distancia * self.consumo) * precio
         return costo_base + self.__costo_extra
 
 
-# --- FUNCION POLIMORFICA ---
-# Recibe una lista de objetos (Autos, Motos, Camiones) y los trata por igual.
+#Polimorfismo
 def calcular_costos(vehiculos, distancia, precio):
     print("\n--- REPORTE DE COSTOS DE VIAJE ---")
     if not vehiculos:
         print("No hay vehiculos registrados.")
     else:
         for v in vehiculos:
-            # POLIMORFISMO: Aqui llamamos a los metodos.
+            #POLIMORFISMO
             v.mostrar_informacion()
             costo = v.calcular_costo_viaje(distancia, precio)
             print(f"Costo del viaje: ${costo}")
             print("-------------------------")
 
+#MENUS
 
-# ==========================================
-#           MENUS DEL SISTEMA
-# ==========================================
-
-# Instancias globales.
 control_acad = ControlAcademico()
 mi_biblioteca = Biblioteca()
 lista_vehiculos_global = []
 
-# Menu para Gestion Academica.
 def menu_academico():
     while True:
         print("\n--- GESTION ACADEMICA ---")
@@ -464,7 +415,6 @@ def menu_academico():
         print("6. Actualizar Profesor Investigador")
         print("7. Volver")
 
-        # Solicitamos opcion como entero.
         op = int(input("Ingresa la opcion: "))
 
         if op == 1:
@@ -484,8 +434,6 @@ def menu_academico():
         else:
             print("Opcion invalida.")
 
-
-# Menu para Biblioteca.
 def menu_biblioteca():
     while True:
         print("\n--- BIBLIOTECA ---")
@@ -508,7 +456,6 @@ def menu_biblioteca():
             print("Opcion invalida.")
 
 
-# Menu para Transporte.
 def menu_transporte():
     while True:
         print("\n--- GESTION VEHICULAR ---")
@@ -565,7 +512,6 @@ def menu_transporte():
             print("Opcion invalida.")
 
 
-# Menu Principal.
 def menu_principal():
     while True:
         print("\n===== CAMPUS MANAGER 360 =====")
@@ -588,5 +534,4 @@ def menu_principal():
         else:
             print("Opcion no reconocida.")
 
-# Ejecutar menu principal
 menu_principal()
