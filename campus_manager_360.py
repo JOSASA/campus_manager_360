@@ -1,12 +1,17 @@
-#---LISTAS---
+# ==========================================
+#           LISTAS GLOBALES
+# ==========================================
 lista_estudiante = []
-lista_profesor = []
-lista_investigador = []
+lista_profesor = []  # Opcional si decides usarlos por separado
+lista_investigador = []  # Opcional si decides usarlos por separado
 lista_profesor_investigador = []
-lista_libros = []
+lista_libros = []  # Se usará dentro de la clase Biblioteca
 lista_vehiculos = []
 
-#-------------GESTION ACADEMICA--------------
+
+# ==========================================
+#           MODULO 1: GESTION ACADEMICA
+# ==========================================
 class Persona:
     def __init__(self, nombre, apaterno, amaterno, edad):
         self.__nombre = nombre
@@ -15,76 +20,38 @@ class Persona:
         self.__edad = edad
 
     @property
-    def nombre(self):
-        return self.__nombre
-
-    @nombre.setter
-    def nombre(self, nombre):
-        self.__nombre = nombre
+    def nombre(self): return self.__nombre
 
     @property
-    def apaterno(self):
-        return self.__apaterno
-
-    @apaterno.setter
-    def apaterno(self, nuevo_apaterno):
-        self.__apaterno = nuevo_apaterno
+    def apaterno(self): return self.__apaterno
 
     @property
-    def amaterno(self):
-        return self.__amaterno
-
-    @amaterno.setter
-    def amaterno(self, nuevo_amaterno):
-        self.__amaterno = nuevo_amaterno
+    def amaterno(self): return self.__amaterno
 
     @property
-    def edad(self):
-        return self.__edad
+    def edad(self): return self.__edad
 
-    @edad.setter
-    def edad(self, nueva_edad):
-        self.__edad = nueva_edad
 
 class Estudiante(Persona):
     def __init__(self, nombre, apaterno, amaterno, edad, expediente, carrera, semestre, promedio):
-        super.__init__(self, nombre, apaterno, amaterno, edad)
+        super().__init__(nombre, apaterno, amaterno, edad)  # Corregido
         self.__expediente = expediente
         self.__carrera = carrera
         self.__semestre = semestre
         self.__promedio = promedio
 
     @property
-    def expediente(self):
-        return self.__expediente
-
-    @expediente.setter
-    def expediente(self, nuevo_expediente):
-        self.__expediente = nuevo_expediente
+    def expediente(self): return self.__expediente
 
     @property
-    def carrera(self):
-        return self.__carrera
-
-    @carrera.setter
-    def carrera(self, nueva_carrera):
-        self.__carrera = nueva_carrera
+    def carrera(self): return self.__carrera
 
     @property
-    def semestre(self):
-        return self.__semestreq
-
-    @semestre.setter
-    def semestre(self, nuevo_semestre):
-        self.__semestre = nuevo_semestre
+    def semestre(self): return self.__semestre
 
     @property
-    def promedio(self):
-        return self.__promedio
+    def promedio(self): return self.__promedio
 
-    @promedio.setter
-    def promedio(self, nuevo_promedio):
-        self.__promedio = nuevo_promedio
 
 class Profesor(Persona):
     def __init__(self, nombre, apaterno, amaterno, edad, num_empleado, area_docente):
@@ -93,20 +60,11 @@ class Profesor(Persona):
         self.__area_docente = area_docente
 
     @property
-    def num_empleado(self):
-        return self.__num_empleado
-
-    @num_empleado.setter
-    def num_empleado(self, num_empleado):
-        self.__num_empleado = num_empleado
+    def num_empleado(self): return self.__num_empleado
 
     @property
-    def area_docente(self):
-        return self.__area_docente
+    def area_docente(self): return self.__area_docente
 
-    @area_docente.setter
-    def area_docente(self, area_docente):
-        self.__area_docente = area_docente
 
 class Investigador(Persona):
     def __init__(self, nombre, apaterno, amaterno, edad, linea_investigacion, publicaciones):
@@ -115,120 +73,88 @@ class Investigador(Persona):
         self.__publicaciones = publicaciones
 
     @property
-    def linea_investigacion(self):
-        return self.__linea_investigacion
-
-    @linea_investigacion.setter
-    def linea_investigacion(self, linea_investigacion):
-        self.__linea_investigacion = linea_investigacion
+    def linea_investigacion(self): return self.__linea_investigacion
 
     @property
-    def publicaciones(self):
-        return self.__publicaciones
+    def publicaciones(self): return self.__publicaciones
 
-    @publicaciones.setter
-    def publicaciones(self, publicaciones):
-        self.__publicaciones = publicaciones
 
 class ProfesorInvestigador(Profesor, Investigador):
-    def __init__(self, nombre, apellido_paterno, apellido_materno, edad, num_empleado, area_docente,
+    def __init__(self, nombre, apaterno, amaterno, edad, num_empleado, area_docente,
                  linea_investigacion, publicaciones):
-        Profesor.__init__(self, nombre, apellido_paterno, apellido_materno, edad, num_empleado, area_docente)
-        Investigador.__init__(self, nombre, apellido_paterno, apellido_materno, edad, linea_investigacion,
-                              publicaciones)
+        # Llamada explícita a los constructores padres
+        Profesor.__init__(self, nombre, apaterno, amaterno, edad, num_empleado, area_docente)
+        Investigador.__init__(self, nombre, apaterno, amaterno, edad, linea_investigacion, publicaciones)
 
-class ControlAcademico:
-    def mostrar_estudiantes(self):
-        if not lista_estudiante:
-            print("La lista de profesores investigadores está vacía.")
-        else:
-            for es in lista_estudiante:
-                print(f"Nombre: {es.nombre} {es.apellido_paterno} {es.apellido_materno}")
-                print(f"Edad: {es.edad}")
-                print(f"No. Empleado: {es.num_empleado}")
-                print(f"Área Docente: {es.area_docente}")
-                print(f"Línea de Investigación: {es.linea_investigacion}")
-                print(f"Publicaciones: {es.publicaciones}")
-                print("-" * 30)
 
-#-------------BIBLIOTECA--------------
+# ==========================================
+#           MODULO 2: BIBLIOTECA
+# ==========================================
 class Libro:
-    def __init__(self, titulo, autor, numPaginas, disponible):
+    def __init__(self, titulo, autor, numPaginas, disponible=True):
         self.__titulo = titulo
         self.__autor = autor
         self.__numPaginas = numPaginas
         self.__disponible = disponible
 
     @property
-    def titulo(self):
-        return self.__titulo
-
-    @titulo.setter
-    def titulo(self, nuevo_titulo):
-        self.__titulo = nuevo_titulo
+    def titulo(self): return self.__titulo
 
     @property
-    def autor(self):
-        return self.__autor
-
-    @autor.setter
-    def autor(self, nuevo_autor):
-        self.__autor = nuevo_autor
+    def autor(self): return self.__autor
 
     @property
-    def numPaginas(self):
-        return self.__numPaginas
-
-    @numPaginas.setter
-    def numPaginas(self, nuevo_numPaginas):
-        self.__numPaginas = nuevo_numPaginas
+    def numPaginas(self): return self.__numPaginas
 
     @property
-    def disponible(self):
-        return self.__disponible
+    def disponible(self): return self.__disponible
 
     @disponible.setter
-    def disponible(self, nuevo_disponible):
-        if isinstance(nuevo_disponible, bool):
-            self.__disponible = nuevo_disponible
-        else:
-            print("Error: El estado debe ser True o False")
+    def disponible(self, valor): self.__disponible = valor
 
 
 class Biblioteca():
     def __init__(self):
-        self.libros = []
+        self.libros = []  # Usamos lista interna de la instancia
 
     def registrar_libro(self, libro):
-        if libro.numPaginas > 0:
+        if int(libro.numPaginas) > 0:
             self.libros.append(libro)
-            print(f'El libro "{libro.titulo}" se agregó exitosamente!')
+            print(f'>> El libro "{libro.titulo}" se agregó exitosamente.')
         else:
-            print('\nEl número de páginas no es válido')
+            print('\n>> Error: El número de páginas no es válido.')
 
     def listar_libros(self):
-        for libro in self.libros:
-            print("-------------------------")
-            print(f'Título: {libro.titulo}')
-            print(f'Autor: {libro.autor}')
-            print(f'Páginas: {libro.numPaginas}')
+        if not self.libros:
+            print(">> No hay libros registrados.")
+            return
 
-            estado_texto = "Disponible" if libro.disponible else "Reservado"
-            print(f'Estado: {estado_texto}')
+        print("\n--- Catálogo de Libros ---")
+        for libro in self.libros:
+            print(f'Título: {libro.titulo}')
+            print(f'Autor:  {libro.autor}')
+            print(f'Págs:   {libro.numPaginas}')
+            estado = "Disponible" if libro.disponible else "Prestado/Reservado"
+            print(f'Estado: {estado}')
+            print("-" * 25)
 
     def cambiar_disponibilidad(self, titulo_buscar):
         for libro in self.libros:
             if libro.titulo.lower() == titulo_buscar.lower():
                 libro.disponible = not libro.disponible
-
-                nuevo_estado_texto = "Disponible" if libro.disponible else "Reservado"
-                print(f"\nÉxito: El estado de '{libro.titulo}' cambió a: {nuevo_estado_texto}")
+                nuevo_estado = "Disponible" if libro.disponible else "Prestado/Reservado"
+                print(f"\n>> Éxito: El estado de '{libro.titulo}' cambió a: {nuevo_estado}")
                 return
-        print(f"\nError: El libro '{titulo_buscar}' no fue encontrado.")
+        print(f"\n>> Error: El libro '{titulo_buscar}' no fue encontrado.")
 
 
-#-------------GESTION VEHICULAR xd --------------
+# Instancia global de la biblioteca
+mi_biblioteca = Biblioteca()
 
+
+# ==========================================
+#           MODULO 3: GESTION VEHICULAR
+# ==========================================
 class Vehiculo:
     def __init__(self, marca, consumo_combustibleKm):
         self.__marca = marca
@@ -238,26 +164,24 @@ class Vehiculo:
     def consumo_combustibleKm(self):
         return self.__consumo_combustibleKm
 
+    def mostrar_informacion(self):
+        tipo = self.__class__.__name__  # Obtiene el nombre de la clase (Auto, Moto, etc)
+        print(f"[{tipo}] Marca: {self.__marca}")
+
     def calcular_costo_viaje(self, distancia, precio_combustible):
         pass
-
-    def mostrar_informacion(self):
-        print("Informacion del vehiculo")
-        print("Marca:", self.__marca)
 
 
 class Automovil(Vehiculo):
     def calcular_costo_viaje(self, distancia, precio_combustible):
-        litros_utilizados = distancia * self.consumo_combustibleKm
-        costo = litros_utilizados * precio_combustible
-        return costo
+        litros = distancia * self.consumo_combustibleKm
+        return litros * precio_combustible
 
 
 class Motocicleta(Vehiculo):
     def calcular_costo_viaje(self, distancia, precio_combustible):
-        litros_utilizados = distancia * self.consumo_combustibleKm
-        costo = litros_utilizados * precio_combustible
-        return costo
+        litros = distancia * self.consumo_combustibleKm
+        return litros * precio_combustible
 
 
 class Camion(Vehiculo):
@@ -266,42 +190,194 @@ class Camion(Vehiculo):
         self.costoExtra = costoExtra
 
     def calcular_costo_viaje(self, distancia, precio_combustible):
-        litros_utilizados = distancia * self.consumo_combustibleKm
-        costo = litros_utilizados * precio_combustible
-        return costo + self.costoExtra
+        litros = distancia * self.consumo_combustibleKm
+        return (litros * precio_combustible) + self.costoExtra
 
 
-def calcular_costo(lista_vehiculos, distancia, precio):
-    for vehiculo in lista_vehiculos:
-        costo = vehiculo.calcular_costo_viaje(distancia, precio)
-        vehiculo.mostrar_informacion()
-        print("Costo del viaje:", costo)
-        print("----------------------")
+# ==========================================
+#           MENUS Y SUBMENUS
+# ==========================================
+
+def menu_academico():
+    while True:
+        print("\n--- SUBMENÚ: GESTIÓN ACADÉMICA ---")
+        print("1. Registrar Estudiante")
+        print("2. Registrar Profesor Investigador")
+        print("3. Mostrar Estudiantes")
+        print("4. Mostrar Profesores Investigadores")
+        print("5. Regresar al Menú Principal")
+
+        op = input("Seleccione: ")
+
+        if op == '1':
+            print("\n-> Datos del Estudiante:")
+            n = input("Nombre: ")
+            ap = input("Apaterno: ")
+            am = input("Amaterno: ")
+            e = input("Edad: ")
+            exp = input("Expediente: ")
+            c = input("Carrera: ")
+            s = input("Semestre: ")
+            p = input("Promedio: ")
+            est = Estudiante(n, ap, am, e, exp, c, s, p)
+            lista_estudiante.append(est)
+            print(">> Estudiante registrado.")
+
+        elif op == '2':
+            print("\n-> Datos del Prof. Investigador:")
+            n = input("Nombre: ")
+            ap = input("Apaterno: ")
+            am = input("Amaterno: ")
+            e = input("Edad: ")
+            num = input("No. Empleado: ")
+            area = input("Área Docente: ")
+            lin = input("Línea Investigación: ")
+            pub = input("Publicaciones: ")
+            pi = ProfesorInvestigador(n, ap, am, e, num, area, lin, pub)
+            lista_profesor_investigador.append(pi)
+            print(">> Profesor Investigador registrado.")
+
+        elif op == '3':
+            print("\n--- LISTA ESTUDIANTES ---")
+            if not lista_estudiante: print(" (Vacía) ")
+            for item in lista_estudiante:
+                print(f"{item.nombre} {item.apaterno} | Carrera: {item.carrera}")
+
+        elif op == '4':
+            print("\n--- LISTA PROF. INVESTIGADORES ---")
+            if not lista_profesor_investigador: print(" (Vacía) ")
+            for item in lista_profesor_investigador:
+                print(f"{item.nombre} {item.apaterno} | Área: {item.area_docente} | Inv: {item.linea_investigacion}")
+
+        elif op == '5':
+            break
+        else:
+            print("Opción inválida.")
 
 
-#-------------MENUS--------------
+def menu_biblioteca():
+    while True:
+        print("\n--- SUBMENÚ: BIBLIOTECA ---")
+        print("1. Registrar Libro")
+        print("2. Listar Libros")
+        print("3. Prestar/Devolver Libro")
+        print("4. Regresar al Menú Principal")
+
+        op = input("Seleccione: ")
+
+        if op == '1':
+            t = input("Título: ")
+            a = input("Autor: ")
+            try:
+                p = int(input("Número de Páginas: "))
+                l = Libro(t, a, p)
+                mi_biblioteca.registrar_libro(l)
+            except ValueError:
+                print(">> Error: Las páginas deben ser un número entero.")
+
+        elif op == '2':
+            mi_biblioteca.listar_libros()
+
+        elif op == '3':
+            busq = input("Ingrese el título exacto del libro: ")
+            mi_biblioteca.cambiar_disponibilidad(busq)
+
+        elif op == '4':
+            break
+
+
+def menu_vehicular():
+    while True:
+        print("\n--- SUBMENÚ: GESTIÓN VEHICULAR ---")
+        print("1. Agregar Automóvil")
+        print("2. Agregar Motocicleta")
+        print("3. Agregar Camión")
+        print("4. Calcular Costos de Viaje (Flota completa)")
+        print("5. Regresar al Menú Principal")
+
+        op = input("Seleccione: ")
+
+        if op == '1':
+            m = input("Marca del Auto: ")
+            try:
+                c = float(input("Consumo (Litros/Km, ej. 0.12): "))
+                v = Automovil(m, c)
+                lista_vehiculos.append(v)
+                print(">> Automóvil agregado.")
+            except ValueError:
+                print(">> Error: Ingrese un número válido.")
+
+        elif op == '2':
+            m = input("Marca de la Moto: ")
+            try:
+                c = float(input("Consumo (Litros/Km, ej. 0.05): "))
+                v = Motocicleta(m, c)
+                lista_vehiculos.append(v)
+                print(">> Motocicleta agregada.")
+            except ValueError:
+                print(">> Error: Ingrese un número válido.")
+
+        elif op == '3':
+            m = input("Marca del Camión: ")
+            try:
+                c = float(input("Consumo (Litros/Km, ej. 0.35): "))
+                extra = float(input("Costo Extra (Peajes/Mantenimiento): "))
+                v = Camion(m, c, extra)
+                lista_vehiculos.append(v)
+                print(">> Camión agregado.")
+            except ValueError:
+                print(">> Error: Ingrese un número válido.")
+
+        elif op == '4':
+            if not lista_vehiculos:
+                print(">> No hay vehículos registrados.")
+            else:
+                try:
+                    dist = float(input("Distancia del viaje (Km): "))
+                    precio = float(input("Precio combustible (por Litro): "))
+                    print("-" * 30)
+                    total = 0
+                    for v in lista_vehiculos:
+                        costo = v.calcular_costo_viaje(dist, precio)
+                        v.mostrar_informacion()
+                        print(f"Costo: ${costo:.2f}")
+                        total += costo
+                        print("-" * 15)
+                    print(f"TOTAL FLOTA: ${total:.2f}")
+                except ValueError:
+                    print(">> Error: Ingrese números válidos.")
+
+        elif op == '5':
+            break
+
+
 def menu_principal():
     while True:
-        print("\nOPCIONES ")
-        print("1. Registrar Profesor Investigador")
-        print("2. Mostrar registro Profesor Investigador")
-        print("3. Modificar los datos del profesor investigador")
-        print("4. Salir del sistema")
+        print("\n################################")
+        print("      SISTEMA INTEGRAL")
+        print("################################")
+        print("1. Gestión Académica")
+        print("2. Biblioteca")
+        print("3. Gestión Vehicular")
+        print("4. Salir")
 
         opcion = input("Seleccione una opción: ")
 
         if opcion == '1':
-
-            print("Opcion uno.")
-
+            menu_academico()
         elif opcion == '2':
-
-            print("Opcion dos.")
+            menu_biblioteca()
         elif opcion == '3':
-
-            print("Opcion tres.")
+            menu_vehicular()
         elif opcion == '4':
-            print("Gracias...")
+            print("Saliendo del sistema...")
             break
         else:
-            print("Opción no válida, intente de nuevo.")
+            print("Opción no válida.")
+
+
+# ==========================================
+#           EJECUCION
+# ==========================================
+if __name__ == "__main__":
+    menu_principal()
