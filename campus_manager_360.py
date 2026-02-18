@@ -588,6 +588,5 @@ def menu_principal():
         else:
             print("Opcion no reconocida.")
 
-
-# Menu principal.
+# Ejecutar menu principal
 menu_principal()
