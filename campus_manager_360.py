@@ -379,5 +379,4 @@ def menu_principal():
 # ==========================================
 #           EJECUCION
 # ==========================================
-if __name__ == "__main__":
-    menu_principal()
+menu_principal()
